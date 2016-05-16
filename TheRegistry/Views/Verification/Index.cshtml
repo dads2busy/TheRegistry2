@@ -1,0 +1,99 @@
+﻿@model Questionnaire2.ViewModels.UserVerifications
+
+<h2>Verifications</h2>
+
+<fieldset>
+    <legend>Unverified Users</legend>
+
+    <table id="unverifiedTable" class="unverified">
+        @foreach (var item in Model.UsersUnverified)
+        {
+            <tr>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersUnverified.FirstOrDefault().UserName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersUnverified.FirstOrDefault().FirstName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersUnverified.FirstOrDefault().LastName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    Status
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px"></th>
+            </tr>
+            <tr>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.HiddenFor(modelItem => item.UserId)
+                    @Html.Raw(item.UserName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.FirstName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.LastName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.VerifiedCount)/@Html.Raw(item.VerifiedCount + item.UnverifiedCount)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.ActionLink("Application", "List", new { id = item.UserId })
+                    @* | @Html.ActionLink("Delete", "Delete", new { id=item.UserId })*@
+                </td>
+            </tr>
+        }
+    </table>
+</fieldset>
+<br />
+<fieldset>
+    <legend>Verified Users</legend>
+
+    <table id="verifiedTable" class="verified">
+        @foreach (var item in Model.UsersVerified)
+        {
+            <tr>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersVerified.FirstOrDefault().UserName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersVerified.FirstOrDefault().FirstName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    @Html.DisplayNameFor(model => model.UsersVerified.FirstOrDefault().LastName)
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px">
+                    Status
+                </th>
+                <th style="width: 20%; vertical-align:top; padding: 5px"></th>
+            </tr>
+            <tr>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.HiddenFor(modelItem => item.UserId)
+                    @Html.Raw(item.UserName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.FirstName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.LastName)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.Raw(item.VerifiedCount)/@Html.Raw(item.VerifiedCount + item.UnverifiedCount)
+                </td>
+                <td style="vertical-align:top; padding: 5px">
+                    @Html.ActionLink("Application", "List", new { id = item.UserId })
+                    @* | @Html.ActionLink("Delete", "Delete", new { id=item.UserId })*@
+                </td>
+            </tr>
+        }
+
+    </table>
+</fieldset>
+
+@section Scripts {
+<script type="text/javascript">
+    $("tr:odd").css("background-color", "White");
+    $("tr:even").css("background-color", "White");
+</script>
+}

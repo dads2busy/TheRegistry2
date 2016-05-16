@@ -1,0 +1,18 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    <input type="submit" id="btnMonthRep" name="Command" value="MonthlyReport" />
+    <input type="submit" id="btnExportAll" name="Command" value="ExportAllData" />
+    <input type="submit" id="btnPdf" name="Command" value="VerificationsReport" />
+}
+
+

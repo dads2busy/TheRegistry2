@@ -1,0 +1,83 @@
+﻿@model Questionnaire2.ViewModels.VmVerificationItems
+
+@{
+    ViewBag.Title = "List";
+}
+
+<h2>Verify Individual</h2>
+
+@using (Html.BeginForm("UpdateLevel", null, FormMethod.Post, new { }))
+{
+    <fieldset>
+        <legend>Step Level</legend>
+
+        <table id="verificationLevel" class="verifyIndividual">
+            <tr>
+                <td style="padding: 5px 5px 5px 5px; font-weight: 700">
+                    Final Assigned Level: <span style="font-style:italic">@Model.UserLevel.FinalStepLevel</span>
+                </td>
+                <td style="padding: 5px 5px 5px 5px; text-align:right">
+                    @Html.DropDownList("stepLevel", Model.LatticeItems, "Select a Step-Level", new { @style = "font-size: 11px" }) &nbsp; <input type="submit" value="Update Level" />
+                    @Html.HiddenFor(model => model.UserLevel.Id, new { @Name = "Id" })
+                </td>
+            </tr>
+        </table>
+    </fieldset>
+}
+
+<fieldset>
+    <legend>Verification Sections</legend>
+
+    <table id="verificationSections" class="verifyIndividual">
+        <tr style="font-size: 14px;">
+            <th style="vertical-align:top; padding: 5px 5px 5px 5px;">Item Information</th>
+            <th style="vertical-align:top; padding: 5px 5px 5px 5px;">Supporting Files</th>
+            <th style="vertical-align:top; padding: 5px 5px 5px 5px;">Verification</th>
+            @*<th></th>*@
+        </tr>
+
+        @foreach (var item in Model.VerificationItems)
+        {
+            using (Html.BeginForm()) {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                
+                <tr style="font-size: 12px;">
+                    <td style="vertical-align:top; padding: 5px 5px 5px 5px">
+                        @Html.Raw(item.Verification.ItemInfo)
+                        @Html.HiddenFor(model => item.Verification.Id)
+                        @Html.HiddenFor(model => item.Verification.QuestionnaireId)
+                        @Html.HiddenFor(model => item.Verification.UserId)
+                        @Html.HiddenFor(model => item.Verification.QCategoryId)
+                        @Html.HiddenFor(model => item.Verification.SubOrdinal)
+                        @Html.HiddenFor(model => item.Verification.ItemInfo)
+                        @Html.HiddenFor(model => item.Verification.QQCategoryId)
+                        @{ var itemStepLevel = item.Verification.ItemStepLevel; }
+                    </td>
+                    <td style="vertical-align:top; padding: 5px 5px 5px 5px">
+                        @foreach (var file in item.Files)
+                        {
+                            <p>@Html.DisplayFor(fileItem => file.FileName)</p>
+                        }
+                    </td>
+                    <td style="vertical-align:top; padding: 5px 5px 5px 5px; width: 25%">
+                        <p>Verified: @Html.EditorFor(modelItem => item.Verification.ItemVerified)</p>
+                        <p>Editable: @Html.EditorFor(modelItem => item.Verification.Editable)</p>
+                        <p>Step-Level: @Html.DropDownListFor(modelItem => item.Verification.ItemStepLevel, new SelectList(Model.LatticeItems, "Value", "Text", itemStepLevel), "Select a Step-Level", new { @style = "font-size: 11px; background-color: ButtonFace" })</p>
+                        <p>Notes: @Html.TextAreaFor(modelItem => item.Verification.Notes, new { @style = "width: 225px; height: 100px; background-color: ButtonFace" })</p>
+                        <p><input type="submit" value="Update" /></p>
+                    </td>
+                    @*<td>
+                        <p>@Html.ActionLink("Edit", "Edit", new { id = item.Verification.Id })</p>
+                    </td>*@
+                </tr>
+            }
+        }
+    </table>
+</fieldset>
+@section Scripts {
+<script type="text/javascript">
+    $("tr:odd").css("background-color", "White");
+    $("tr:even").css("background-color", "White");
+</script>
+}

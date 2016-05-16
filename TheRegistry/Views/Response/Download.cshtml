@@ -1,0 +1,50 @@
+﻿@*@model Questionnaire2.Models.UserLevel*@
+@model Questionnaire2.Models.UserLevel
+
+@{
+    ViewBag.Title = "Download";
+}
+
+<h2>My IMPACT</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+    
+    <fieldset>
+        <legend>Downloads</legend>
+        <p>
+            <table style="width:400px; height:180px; border:0px solid gray">
+                <tr style="border:0px solid gray; font-weight:bold">
+                    <td>Portfolio (MS Word)</td>
+                    <td><input type="submit" id="btnWord" name="Command" value="MS Word" /></td>
+                </tr>
+                <tr style="border:0px solid gray; font-weight:bold">
+                    <td>Portfolio (pdf)</td>
+                    <td><input type="submit" id="btnPdf" name="Command" value="Pdf" /></td>
+                </tr>               
+                <tr style="border:0px solid gray; font-weight:bold">
+                    <td>Level Certificate (pdf)</td>
+                    @if (Model != null && Model.FinalStepLevel != "")
+                    {
+                        <td><input type="submit" id="btnCert" name="Command" value="Certificate" /></td>
+                    }
+                    else
+                    {
+                        <td>Not Yet Available</td>
+                    }
+                </tr>
+            </table>
+            
+            
+            
+                
+                      
+        </p>
+    </fieldset>
+}
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

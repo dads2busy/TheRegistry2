@@ -1,0 +1,11 @@
+﻿@model Questionnaire2.ViewModels.IDandBool
+
+@{
+    ViewBag.Title = "Verification";
+}
+
+<h2>Submit Application for Verification</h2>
+<p>Submitting your application for verification will send all of your application information as it is currently entered.</p>
+
+
+<div>@Html.ActionLink("Submit for Verification", "SendToVerification", "Verification", new {id = Model.UserId}, null)</div>
