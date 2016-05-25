@@ -38,10 +38,11 @@
 
         @foreach (var item in Model.VerificationItems)
         {
-            using (Html.BeginForm()) {
+            using (Html.BeginForm())
+            {
                 @Html.AntiForgeryToken()
                 @Html.ValidationSummary(true)
-                
+
                 <tr style="font-size: 12px;">
                     <td style="vertical-align:top; padding: 5px 5px 5px 5px">
                         @Html.Raw(item.Verification.ItemInfo)
@@ -57,7 +58,8 @@
                     <td style="vertical-align:top; padding: 5px 5px 5px 5px">
                         @foreach (var file in item.Files)
                         {
-                            <p>@Html.DisplayFor(fileItem => file.FileName)</p>
+                            /*<p>@Html.DisplayFor(fileItem => file.FileName)</p>*/
+                            @Html.ActionLink(file.FileName, "DownloadFile", "Verification", new { id = file.FileId, vId = Model.VerificationItems.First().Verification.Id }, null)<br />
                         }
                     </td>
                     <td style="vertical-align:top; padding: 5px 5px 5px 5px; width: 25%">
@@ -68,16 +70,16 @@
                         <p><input type="submit" value="Update" /></p>
                     </td>
                     @*<td>
-                        <p>@Html.ActionLink("Edit", "Edit", new { id = item.Verification.Id })</p>
-                    </td>*@
+                            <p>@Html.ActionLink("Edit", "Edit", new { id = item.Verification.Id })</p>
+                        </td>*@
                 </tr>
             }
         }
     </table>
 </fieldset>
 @section Scripts {
-<script type="text/javascript">
-    $("tr:odd").css("background-color", "White");
-    $("tr:even").css("background-color", "White");
-</script>
+    <script type="text/javascript">
+        $("tr:odd").css("background-color", "White");
+        $("tr:even").css("background-color", "White");
+    </script>
 }
